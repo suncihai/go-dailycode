@@ -8,6 +8,7 @@ import (
 
 	"time"
 
+	"github.com/go-openapi/runtime/middleware"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/gorilla/mux"
 )
@@ -24,6 +25,12 @@ func main() {
 
 	router := mux.NewRouter()
 	setupRoutesForRecords(router)
+    
+    router.Handle("/swagger.yaml", http.FileServer(http.Dir("/")))
+
+	opts := middleware.SwaggerUIOpts{SpecURL: "/swagger.yaml"}
+	sh := middleware.SwaggerUI(opts, nil);
+	router.Handle("/docs", sh)
     
 	port := ":8000"
 
