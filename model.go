@@ -6,7 +6,7 @@ type Record struct {
 	Problem int `json:"problem"`
 	CreateAt string `json:"create_time"`
 	Success bool `json:"sucess"`
-	Language string `json:"lanauge"`
+	Language string `json:"language"`
 }
 
 type SuccessRes struct {
