@@ -1,12 +1,12 @@
 package main
 
 type Record struct {
-	ID int `json:"id"`
-	Name string `json:"username"`
-	Problem int `json:"problem"`
-	CreateAt string `json:"create_time"`
-	Success bool `json:"sucess"`
-	Language string `json:"language"`
+	ID       int    `json:"id" example:"1"`
+	Name     string `json:"username" example:"Peter"`
+	Problem  int    `json:"problem" example:"1"`
+	CreateAt string `json:"create_time" example:"2020-09-27"`
+	Success  bool   `json:"sucess" example:"true"`
+	Language string `json:"language" example:"English"`
 }
 
 type SuccessRes struct {

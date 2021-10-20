@@ -4,10 +4,14 @@ import (
 	"net/http"
 )
 
-// swagger:route GET /records  get records
-// GET daily code records
-// responses:
-//   200: SuccessRes
+// GetRecords godoc
+// @Summary Get records request
+// @Description Get records from dailycode database
+// @Tags records
+// @Accept  json
+// @Produce  json
+// @Success 200 {array} Record
+// @Router /records [get]
 func getRecords(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	records := []Record{}

@@ -1,4 +1,168 @@
+definitions:
+  main.Item:
+    properties:
+      description:
+        example: A random description
+        type: string
+      itemId:
+        example: A1B2C3
+        type: string
+      quantity:
+        example: 1
+        type: integer
+    type: object
+  main.Order:
+    properties:
+      customerName:
+        example: Leo Messi
+        type: string
+      items:
+        items:
+          $ref: '#/definitions/main.Item'
+        type: array
+      orderId:
+        example: "1"
+        type: string
+      orderedAt:
+        example: "2019-11-09T21:21:46+00:00"
+        type: string
+    type: object
+  main.Record:
+    properties:
+      create_time:
+        example: "2020-09-27"
+        type: string
+      id:
+        example: 1
+        type: integer
+      language:
+        example: English
+        type: string
+      problem:
+        example: 1
+        type: integer
+      sucess:
+        example: true
+        type: boolean
+      username:
+        example: Peter
+        type: string
+    type: object
 info:
   contact: {}
-paths: {}
+paths:
+  /orders:
+    get:
+      consumes:
+      - application/json
+      description: Get details of all orders
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/main.Order'
+            type: array
+      summary: Get details of all orders
+      tags:
+      - orders
+    post:
+      consumes:
+      - application/json
+      description: Create a new order with the input paylod
+      parameters:
+      - description: Create order
+        in: body
+        name: order
+        required: true
+        schema:
+          $ref: '#/definitions/main.Order'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/main.Order'
+      summary: Create a new order
+      tags:
+      - orders
+  /orders/{orderId}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete the order corresponding to the input orderId
+      parameters:
+      - description: ID of the order to be deleted
+        in: path
+        name: orderId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+      summary: Delete order identified by the given orderId
+      tags:
+      - orders
+    get:
+      consumes:
+      - application/json
+      description: Get details of order corresponding to the input orderId
+      parameters:
+      - description: ID of the order
+        in: path
+        name: orderId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/main.Order'
+      summary: Get details for a given orderId
+      tags:
+      - orders
+    post:
+      consumes:
+      - application/json
+      description: Update the order corresponding to the input orderId
+      parameters:
+      - description: ID of the order to be updated
+        in: path
+        name: orderId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/main.Order'
+      summary: Update order identified by the given orderId
+      tags:
+      - orders
+  /records:
+    get:
+      consumes:
+      - application/json
+      description: Get records from dailycode database
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/main.Record'
+            type: array
+      summary: Get records request
+      tags:
+      - records
 swagger: "2.0"
