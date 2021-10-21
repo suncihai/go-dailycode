@@ -148,6 +148,28 @@ paths:
       summary: Update order identified by the given orderId
       tags:
       - orders
+  /record:
+    post:
+      consumes:
+      - application/json
+      description: Create a new record with the input paylod
+      parameters:
+      - description: Create record
+        in: body
+        name: record
+        required: true
+        schema:
+          $ref: '#/definitions/main.Record'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/main.Record'
+      summary: Create a new record
+      tags:
+      - records
   /records:
     get:
       consumes:

@@ -170,6 +170,40 @@ var doc = `{
                 }
             }
         },
+        "/record": {
+            "post": {
+                "description": "Create a new record with the input paylod",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "records"
+                ],
+                "summary": "Create a new record",
+                "parameters": [
+                    {
+                        "description": "Create record",
+                        "name": "record",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/main.Record"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/main.Record"
+                        }
+                    }
+                }
+            }
+        },
         "/records": {
             "get": {
                 "description": "Get records from dailycode database",
