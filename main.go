@@ -4,12 +4,12 @@ import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
+	"go-dailycode/db"
+	_ "go-dailycode/docs"
+	"go-dailycode/routers"
 	"log"
 	"net/http"
-
 	"time"
-
-	_ "go-dailycode/docs"
 
 	_ "github.com/go-sql-driver/mysql"
 
@@ -18,18 +18,17 @@ import (
 	"github.com/gorilla/mux"
 )
 
-var db *sql.DB
 var err error
 
 func main() {
-    db, err = sql.Open("mysql", ConnectionString)
+    db.DB, err = sql.Open("mysql", routers.ConnectionString)
 	if(err != nil) {
 		panic(err.Error())
 	}
 	fmt.Println("successfully connected to database.")
 
 	router := mux.NewRouter()
-	setupRoutesForRecords(router)
+	routers.SetupRoutesForRecords(router)
     
 	// opts := middleware.SwaggerUIOpts{SpecURL: "/swagger.yaml"}
 	// sh := middleware.SwaggerUI(opts, nil);
