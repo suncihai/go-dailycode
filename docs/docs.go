@@ -23,6 +23,37 @@ var doc = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/login": {
+            "post": {
+                "description": "User login function",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "users"
+                ],
+                "summary": "User login",
+                "parameters": [
+                    {
+                        "description": "User login",
+                        "name": "user",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.User"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
         "/orders": {
             "get": {
                 "description": "Get details of all orders",
@@ -170,6 +201,32 @@ var doc = `{
                 }
             }
         },
+        "/problems": {
+            "get": {
+                "description": "Get problems from dailycode database",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Problems"
+                ],
+                "summary": "Get problems request",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.Problem"
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/record": {
             "post": {
                 "description": "Create a new record with the input paylod",
@@ -190,16 +247,13 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/main.Record"
+                            "$ref": "#/definitions/models.Record"
                         }
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/main.Record"
-                        }
+                        "description": ""
                     }
                 }
             }
@@ -223,7 +277,64 @@ var doc = `{
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/main.Record"
+                                "$ref": "#/definitions/models.Record"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/register": {
+            "post": {
+                "description": "Register a new user",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "users"
+                ],
+                "summary": "Register a new user",
+                "parameters": [
+                    {
+                        "description": "Register a new user",
+                        "name": "user",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.User"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/users": {
+            "get": {
+                "description": "Get users from dailycode database",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "users"
+                ],
+                "summary": "Get users request",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.User"
                             }
                         }
                     }
@@ -272,7 +383,31 @@ var doc = `{
                 }
             }
         },
-        "main.Record": {
+        "models.Problem": {
+            "type": "object",
+            "properties": {
+                "difficulty": {
+                    "type": "string",
+                    "example": "Easy"
+                },
+                "id": {
+                    "type": "integer",
+                    "example": 1
+                },
+                "name": {
+                    "type": "string"
+                },
+                "number": {
+                    "type": "integer",
+                    "example": 1
+                },
+                "tag": {
+                    "type": "string",
+                    "example": "Array Linkedlist"
+                }
+            }
+        },
+        "models.Record": {
             "type": "object",
             "properties": {
                 "create_time": {
@@ -296,6 +431,23 @@ var doc = `{
                     "example": true
                 },
                 "username": {
+                    "type": "string",
+                    "example": "Peter"
+                }
+            }
+        },
+        "models.User": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "example": 1
+                },
+                "password": {
+                    "type": "string",
+                    "example": "xxxxxxxxx"
+                },
+                "usernmae": {
                     "type": "string",
                     "example": "Peter"
                 }

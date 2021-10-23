@@ -13,6 +13,10 @@ func SetupRoutesForRecords(router *mux.Router) {
 	// router.HandleFunc("/", main.home)
 	router.HandleFunc("/records", controllers.GetRecords).Methods("GET")
 	router.HandleFunc("/record", controllers.CreateRecord).Methods("POST")
+	router.HandleFunc("/users", controllers.GetUsers).Methods("GET")
+	router.HandleFunc("/register", controllers.RegisterUser).Methods("POST")
+	router.HandleFunc("/login", controllers.LoginUser).Methods("POST")
+	router.HandleFunc("/problems", controllers.GetProblems).Methods("GET")
 }
 
 func enableCORS(router *mux.Router) {

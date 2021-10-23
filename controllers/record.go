@@ -13,7 +13,7 @@ import (
 // @Tags records
 // @Accept  json
 // @Produce  json
-// @Success 200 {array} Record
+// @Success 200 {array} models.Record
 // @Router /records [get]
 func GetRecords(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
@@ -44,8 +44,8 @@ func GetRecords(w http.ResponseWriter, r *http.Request) {
 // @Tags records
 // @Accept  json
 // @Produce  json
-// @Param record body Record true "Create record"
-// @Success 200 {object} Record
+// @Param record body models.Record true "Create record"
+// @Success 200
 // @Router /record [post]
 func CreateRecord(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")

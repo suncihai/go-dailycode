@@ -27,7 +27,24 @@ definitions:
         example: "2019-11-09T21:21:46+00:00"
         type: string
     type: object
-  main.Record:
+  models.Problem:
+    properties:
+      difficulty:
+        example: Easy
+        type: string
+      id:
+        example: 1
+        type: integer
+      name:
+        type: string
+      number:
+        example: 1
+        type: integer
+      tag:
+        example: Array Linkedlist
+        type: string
+    type: object
+  models.Record:
     properties:
       create_time:
         example: "2020-09-27"
@@ -48,9 +65,41 @@ definitions:
         example: Peter
         type: string
     type: object
+  models.User:
+    properties:
+      id:
+        example: 1
+        type: integer
+      password:
+        example: xxxxxxxxx
+        type: string
+      usernmae:
+        example: Peter
+        type: string
+    type: object
 info:
   contact: {}
 paths:
+  /login:
+    post:
+      consumes:
+      - application/json
+      description: User login function
+      parameters:
+      - description: User login
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/models.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ""
+      summary: User login
+      tags:
+      - users
   /orders:
     get:
       consumes:
@@ -148,6 +197,23 @@ paths:
       summary: Update order identified by the given orderId
       tags:
       - orders
+  /problems:
+    get:
+      consumes:
+      - application/json
+      description: Get problems from dailycode database
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Problem'
+            type: array
+      summary: Get problems request
+      tags:
+      - Problems
   /record:
     post:
       consumes:
@@ -159,14 +225,12 @@ paths:
         name: record
         required: true
         schema:
-          $ref: '#/definitions/main.Record'
+          $ref: '#/definitions/models.Record'
       produces:
       - application/json
       responses:
         "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/main.Record'
+          description: ""
       summary: Create a new record
       tags:
       - records
@@ -182,9 +246,46 @@ paths:
           description: OK
           schema:
             items:
-              $ref: '#/definitions/main.Record'
+              $ref: '#/definitions/models.Record'
             type: array
       summary: Get records request
       tags:
       - records
+  /register:
+    post:
+      consumes:
+      - application/json
+      description: Register a new user
+      parameters:
+      - description: Register a new user
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/models.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ""
+      summary: Register a new user
+      tags:
+      - users
+  /users:
+    get:
+      consumes:
+      - application/json
+      description: Get users from dailycode database
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.User'
+            type: array
+      summary: Get users request
+      tags:
+      - users
 swagger: "2.0"
