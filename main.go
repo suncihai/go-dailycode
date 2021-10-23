@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"go-dailycode/db"
 	_ "go-dailycode/docs"
+	"go-dailycode/email"
 	"go-dailycode/routers"
 	"log"
 	"net/http"
@@ -35,6 +36,8 @@ func main() {
 	// router.Handle("/docs", sh)
 	// router.Handle("/swagger.yaml", http.FileServer(http.Dir("/")))
 	router.PathPrefix("/swagger").Handler(httpSwagger.WrapHandler)
+
+	email.SendEmail()
     
 	port := ":8000"
 
@@ -47,11 +50,9 @@ func main() {
 	log.Printf("Server started at %s", port)
 	log.Fatal(server.ListenAndServe())
 	//http.ListenAndServe(port, router)
+
 }
 
-func home(w http.ResponseWriter, r *http.Request) {
-    fmt.Fprintf(w, "Hello Home Page!")
-}
 
 var orders []Order
 var prevOrderID = 0

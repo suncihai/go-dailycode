@@ -4,13 +4,15 @@ import (
 	"go-dailycode/controllers"
 	"net/http"
 
+	"fmt"
+
 	"github.com/gorilla/mux"
 )
 
 func SetupRoutesForRecords(router *mux.Router) {
 	enableCORS(router)
     
-	// router.HandleFunc("/", main.home)
+	router.HandleFunc("/", home)
 	router.HandleFunc("/records", controllers.GetRecords).Methods("GET")
 	router.HandleFunc("/record", controllers.CreateRecord).Methods("POST")
 	router.HandleFunc("/users", controllers.GetUsers).Methods("GET")
@@ -36,4 +38,9 @@ func middlewareCors(next http.Handler) http.Handler {
 			next.ServeHTTP(w, req)
 		})
 }
+
+func home(w http.ResponseWriter, r *http.Request) {
+    fmt.Fprintf(w, "Hello Home Page!")
+}
+
 
